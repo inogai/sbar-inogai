@@ -24,3 +24,5 @@ sbar.default({
 require("my.components.spaces")
 require("my.components.calendar")
 require("my.components.battery")
+require("my.components.cpu")
+require("my.components.memory")
