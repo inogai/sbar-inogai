@@ -28,7 +28,7 @@ cpu:subscribe({ "forced", "routine", "system_woke" }, function(_)
 
 		cpu:set({
 			label = {
-				string = string.format("%.0f%%", cpu_usage),
+				string = string.format("%02.0f%%", cpu_usage),
 				color = fg_color,
 			},
 			background = { color = bg_color },

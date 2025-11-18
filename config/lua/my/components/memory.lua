@@ -35,7 +35,7 @@ mem:subscribe({ "forced", "routine", "system_woke" }, function(_)
 					color = fg_color,
 				},
 				label = {
-					string = string.format("%2d%%", used_pct),
+					string = string.format("%02d%%", used_pct),
 					color = fg_color,
 				},
 				background = { color = bg_color },
