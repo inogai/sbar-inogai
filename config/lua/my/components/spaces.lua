@@ -193,6 +193,38 @@ local function setup_workspace_watcher()
 			end
 		end)
 	end)
+
+	watcher:subscribe("front_app_switched", function(_)
+		sbar.exec("aerospace list-monitors", function(monitors_output)
+			if not monitors_output then
+				return
+			end
+
+			-- Parse monitors
+			local monitors = {}
+			for line in monitors_output:gmatch("[^\r\n]+") do
+				local monitor_id = line:match("^(%d+)")
+				if monitor_id then
+					table.insert(monitors, tonumber(monitor_id))
+				end
+			end
+
+			-- Update spaces for each monitor
+			for _, monitor in ipairs(monitors) do
+				sbar.exec("aerospace list-workspaces --monitor " .. monitor, function(workspaces_output)
+					if not workspaces_output then
+						return
+					end
+
+					for space in workspaces_output:gmatch("[^\r\n]+") do
+						if space and space ~= "" then
+							update_space_display(space)
+						end
+					end
+				end)
+			end
+		end)
+	end)
 end
 
 create_space_items()
