@@ -5,20 +5,46 @@ local icons = {
 }
 
 local app_icons = require("sbaf.icon_map")
+local tui_app_icons = require("sbaf.tui_icon_map")
 local exe = os.getenv("BAR_NAME") or "sketchybar"
+
+local function get_app_icon(window)
+	if not window then
+		return app_icons["Default"]
+	end
+
+	local app_name = window["app-name"]
+	local window_title = window["window-title"]
+
+	if not app_name or app_name == "" then
+		return app_icons["Default"]
+	end
+
+	if app_name == "kitty" and window_title and window_title ~= "" then
+		local matched = window_title:match("> (%w+)")
+		if matched then
+			local tui_app = tui_app_icons[matched]
+			if tui_app then
+				return tui_app
+			end
+		end
+	end
+
+	return app_icons[app_name] or app_icons["Default"]
+end
 
 local function parse_json_apps(json_output)
 	if not json_output or type(json_output) ~= "table" then
 		return {}
 	end
 
-	local apps = {}
+	local windows = {}
 	for _, window in ipairs(json_output) do
 		if window and window["app-name"] then
-			table.insert(apps, window["app-name"])
+			table.insert(windows, window)
 		end
 	end
-	return apps
+	return windows
 end
 
 local function update_space_display(space_id)
@@ -43,8 +69,8 @@ local function update_space_display(space_id)
 				foreground = C.base00
 				if app_count > 0 then
 					local app_icons_str = ""
-					for _, app in ipairs(apps) do
-						local app_icon = app_icons[app] or app_icons["Default"] or "󰍯 "
+					for _, window in ipairs(apps) do
+						local app_icon = get_app_icon(window)
 						app_icons_str = app_icons_str .. app_icon
 					end
 					label = app_icons_str
@@ -55,8 +81,8 @@ local function update_space_display(space_id)
 				foreground = C.base05
 
 				local app_icons_str = ""
-				for _, app in ipairs(apps) do
-					local app_icon = app_icons[app] or app_icons["Default"] or "󰍯 "
+				for _, window in ipairs(apps) do
+					local app_icon = get_app_icon(window)
 					app_icons_str = app_icons_str .. app_icon
 				end
 				label = app_icons_str
