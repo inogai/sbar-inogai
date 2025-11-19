@@ -4,4 +4,4 @@ DIR=$(dirname "$(realpath "$0")")
 
 export LUA_PATH="$DIR/lua/?.lua;$DIR/lua/?/init.lua;$LUA_PATH"
 
-lua $DIR/init.lua
+exec $DIR/init.lua
