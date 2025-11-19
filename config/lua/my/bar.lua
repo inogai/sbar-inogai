@@ -21,7 +21,11 @@ sbar.default({
 	},
 })
 
+-- Left
 require("my.components.spaces")
+require("my.components.window_title")
+
+-- Right
 require("my.components.calendar")
 require("my.components.battery")
 require("my.components.cpu")

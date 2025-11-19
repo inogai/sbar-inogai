@@ -5,6 +5,7 @@ local icons = {
 }
 
 local app_icons = require("sbaf.icon_map")
+local exe = os.getenv("BAR_NAME") or "sketchybar"
 
 local function parse_json_apps(json_output)
 	if not json_output or type(json_output) ~= "table" then
@@ -116,6 +117,9 @@ local function create_space_items()
 						background = { color = C.base00 },
 						click_script = "aerospace focus-workspace " .. space,
 					})
+
+					-- call `move` to ensure the order is preserved
+					sbar.exec(exe .. " --move " .. "components.space." .. space .. " before components.space.watcher")
 
 					update_space_display(space)
 				end
