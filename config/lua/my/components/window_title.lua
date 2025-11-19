@@ -15,7 +15,7 @@ M:subscribe("front_app_switched", function(_)
 	update_window_title()
 end)
 
-M:subscribe("aerospace_window_change", function(_)
+M:subscribe("aerospace_workspace_change", function(_)
 	update_window_title()
 end)
 
