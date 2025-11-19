@@ -1,5 +1,5 @@
 sbar.bar({
-	height = 24,
+	height = 18,
 	color = C.base00,
 	padding_right = 8,
 	padding_left = 8,
