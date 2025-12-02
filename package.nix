@@ -23,7 +23,11 @@ in
     postFixup = ''
       wrapProgram $out/bin/${pname} \
         --set XDG_CONFIG_HOME $out/config \
-        --prefix PATH : ${pkgs.lib.makeBinPath [pkgs.sketchybar pkgs.sbarlua]} \
+        --prefix PATH : ${pkgs.lib.makeBinPath [
+        pkgs.sketchybar
+        pkgs.sbarlua
+        pkgs.lua54Packages.lua
+      ]} \
         --prefix LUA_CPATH \; "${pkgs.sbarlua}/lib/lua/5.4/?.so"
     '';
   })
