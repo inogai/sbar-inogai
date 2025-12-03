@@ -141,7 +141,7 @@ local function create_space_items()
 						icon = { string = space, color = C.base04 },
 						label = { string = "", color = C.base04, font = "sketchybar-app-font:Regular:14.0" },
 						background = { color = C.base00 },
-						click_script = "aerospace focus-workspace " .. space,
+						click_script = "aerospace workspace " .. space,
 					})
 
 					-- call `move` to ensure the order is preserved
