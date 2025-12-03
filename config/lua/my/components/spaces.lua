@@ -149,6 +149,17 @@ local function create_space_items()
 
 					update_space_display(space)
 				end
+
+				local move_cmd = ""
+
+				for _, space in ipairs(workspaces) do
+					move_cmd = move_cmd
+						.. exe
+						.. " --move components.space."
+						.. space
+						.. " before components.space.watcher; "
+				end
+				sbar.exec(move_cmd)
 			end)
 		end
 	end)
